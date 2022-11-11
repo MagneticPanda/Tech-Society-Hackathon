@@ -27,9 +27,9 @@ let foodY = 2;
 let gameScore = 0;
 let gameLevel = 0;
 
-const eatSound = new Audio('sounds/eat.wav');
-const gameOverSound = new Audio("./sounds/game_over.wav");
-const winSound = new Audio("./sounds/win.wav");
+// const eatSound = new Audio('sounds/eat.wav');
+// const gameOverSound = new Audio("./sounds/game_over.wav");
+// const winSound = new Audio("./sounds/win.wav");
 
 class BodyPiece {
     constructor(x, y) {
@@ -161,7 +161,7 @@ function isFoodEaten() {
         foodY = Math.floor(Math.random() * littleSquareCount);
         bodyLength++;
         gameScore++;
-        eatSound.play();
+        // eatSound.play();
     }
 
 }
@@ -193,7 +193,7 @@ function isGameOver() {
         ctx.fillStyle = "rgb(255, 255, 255)";
         ctx.font = "50px Verdana";
         ctx.fillText("Game Over", canvas.width/5, canvas.height/2);
-        gameOverSound.play();
+        // gameOverSound.play();
 
         drawReloadButton();
     }
@@ -217,7 +217,7 @@ function drawWinMessage(){
     ctx.fillStyle = "rgb(255, 255, 255)";
     ctx.font = "50px Verdana";
     ctx.fillText("You Win!", canvas.width/4, canvas.height/2);
-    winSound.play();
+    // winSound.play();
 }
 
 function drawReloadButton(){
