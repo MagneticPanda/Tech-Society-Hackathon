@@ -231,7 +231,7 @@ function drawReloadButton(){
 function reloadWindow() {
     reloadBtn.addEventListener("click", function(){
         window.location.reload();
-    }
+    })
 }
 
 document.body.addEventListener('keydown', event => {
