@@ -5,8 +5,6 @@ const reloadBtn = document.getElementById('reloadBtn');
 
 let speed = 5;
 
-const gitTest = 10;
-
 let littleSquareCount = 20;
 let littleSquareSize = canvas.width / littleSquareCount - 2;
 // NOTE: could change this to an object
