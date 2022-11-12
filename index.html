@@ -11,11 +11,54 @@
 
 <body>
     
-    <button id="reloadbtn">Reload Game</button>
+    <header id="toolbar">
+        <h1>Snake Game (with a Twist!)</h1>
+    
+        <nav aria-label="toolbar-navigation">
+            <hr>
+            <ul>
+                <li>
+                    <a href="how_to_play.html">How to Play</a>
+                </li>
+                <li>
+                    <a href="about_us">About Us</a>
+                </li>
+                <li>
+                    <a href="leaderboard.html">Leaderboard</a>
+                </li>
+            </ul>
+            <hr>
+        </nav>
+        
+    </header>
 
-    <canvas id="snakeGame" width="400" height="400"></canvas>
+    <main>
 
-    <script src="snake_game.js"></script>
+        <section id="countdown">
+            <br><br>
+            <p id="countdown-timer">00:00</p>
+        </section>
+
+        <!-- <section>
+            <label for="playerName">Enter your name:</label>
+            <input type="text" id="playerName" name="playerName" placeholder="Anonymous">
+            <button id="submitName">Submit</button>
+        </section> -->
+        
+        <aside>
+            <button id="reloadbtn">Reload Game</button> <br> <br>
+        <aside>
+        
+        <section>
+            <canvas id="snakeGame" width="400" height="400"></canvas>
+            <script src="snake_game.js"></script>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p> Made with love by UKZN tech society </p>
+    </footer>
 
 </body>
 </html>

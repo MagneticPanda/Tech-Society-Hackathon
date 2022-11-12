@@ -1,4 +1,4 @@
-body {
+/* body {
     padding: 0;
     margin: 0;
     height: 100vh;
@@ -32,4 +32,45 @@ canvas {
     opacity: 0;
     transition-property: opacity;
     transition-duration: 10s;
+} */
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#reloadbtn {
+    width: 150px;
+    height: 0px;
+    background: darkred;
+    border: none;
+    border-radius: 50px;
+    color: #FFF;
+    font-family: 'Verdana', sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+}
+canvas {
+    box-shadow: rgba(0,0,0,0.5) 10px 10px 50px;
+}
+
+/*centering the countdown timer*/
+#countdown {
+    position: absolute;
+    /* top: 50%; */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px #000;
 }
