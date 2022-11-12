@@ -39,13 +39,9 @@ let appleY=5;
 let gameScore = 0;
 let gameLevel = 0;
 
-
-
 // const eatSound = new Audio('sounds/eat.wav');
 // const gameOverSound = new Audio("./sounds/game_over.wav");
 // const winSound = new Audio("./sounds/win.wav");
-
-
 
 class BodyPiece {
     constructor(x, y) {
