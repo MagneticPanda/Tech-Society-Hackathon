@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="images/snakeIcon.ico" type="image/x-icon">
+    
+    
+    <link rel="manifest" href="manifest.json">
+
 </head>
 
 <body>
@@ -38,12 +43,6 @@
             <br><br>
             <p id="countdown-timer">00:00</p>
         </section>
-
-        <!-- <section>
-            <label for="playerName">Enter your name:</label>
-            <input type="text" id="playerName" name="playerName" placeholder="Anonymous">
-            <button id="submitName">Submit</button>
-        </section> -->
         
         <aside>
             <button id="reloadbtn">Reload Game</button> <br> <br>
@@ -54,6 +53,15 @@
             <script src="snake_game.js"></script>
         </section>
         
+        <!-- Registering a service worker -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js')
+                .then((reg) => console.log('service worker registered', reg))
+                .catch((err) => console.log('service worker not registered', err));
+            }
+        </script>
+
     </main>
 
     <footer>

@@ -252,9 +252,6 @@ function drawPear() {
     ctx.fillRect(pearX * littleSquareCount + 10, pearY * littleSquareCount + -1, 5, 4);
 }
 
-
-//bomb outline -- if bomb is touched game is over --
-//still need to make method to end game upon eating bomb
 function drawBomb(){
     ctx.fillStyle = "rgb(0,0, 0)";
     ctx.fillRect(bombX * littleSquareCount + 13, bombY * littleSquareCount + 1, 4, 4);
@@ -272,10 +269,7 @@ function drawApple(){
     ctx.fillRect(appleX * littleSquareCount + 7, appleY * littleSquareCount + 1, 6, 6);
     ctx.fillStyle="rgb(0,255,0)";
     ctx.fillRect(appleX * littleSquareCount + 10, appleY * littleSquareCount + -1, 5, 4);
-
 }
-
-
 
 function isFoodEaten() {
     // if food eaten then the snake grows and score increases
@@ -300,11 +294,10 @@ function isFoodEaten() {
         speed = speed-2;
         eatSound.play();
     }
-    
 }
 
 function isGameOver() {
-
+    /* iniitially the game is not over */
     if (velocityX === 0 && velocityY === 0) {
         return false;
     }
@@ -431,17 +424,6 @@ document.body.addEventListener('keydown', event => {
 });
 
 
-//making the game into a PWA
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-            // Registration was successful
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }, function(err) {
-            // registration failed :(
-            console.log('ServiceWorker registration failed: ', err);
-        });
-    });
-}
+
 
 snakeGame();
