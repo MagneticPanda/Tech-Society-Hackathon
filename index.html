@@ -6,10 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Game</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="shortcut icon" href="images/snakeIcon.ico" type="image/x-icon">
-    
-    
     <link rel="manifest" href="manifest.json">
 
 </head>
@@ -17,19 +15,19 @@
 <body>
     
     <header id="toolbar">
-        <h1>Snake Game (with a Twist!)</h1>
+        <h1>Snake Game (With a Twist!)</h1>
     
         <nav aria-label="toolbar-navigation">
             <hr>
             <ul>
                 <li>
-                    <a href="how_to_play.html">How to Play</a>
+                    <a href="/pages/how_to_play.html">How to Play</a>
                 </li>
                 <li>
-                    <a href="about_us">About Us</a>
+                    <a href="pages/about_us.html">About Us</a>
                 </li>
                 <li>
-                    <a href="leaderboard.html">Leaderboard</a>
+                    <a href="pages/leaderboard.html">Leaderboard</a>
                 </li>
             </ul>
             <hr>
@@ -52,7 +50,6 @@
             <br><br><br>
             <button id="start-timer">Start Timer</button> <br><br>
         </section>
-    
         
         <section>
             <canvas id="snakeGame" width="400" height="400"></canvas>
@@ -60,7 +57,7 @@
         </section>
         
         <!-- Registering a service worker -->
-        <script>
+        <script> 
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('/service-worker.js')
                 .then((reg) => console.log('service worker registered', reg))
@@ -71,7 +68,7 @@
     </main>
 
     <footer>
-        <p> Made with love by UKZN tech society </p>
+        <p> ❤️ Made with love by UKZN tech society ❤️ </p>
     </footer>
 
 </body>
