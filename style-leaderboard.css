@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+}
+
+
+/* Styling the leaderboard table */
+#leaderboard-table {
+    width: 50%;
+    border-collapse: collapse;
+    border: 1px solid #000;
+    margin: 1em 10em 1em 10em;
+}
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+}

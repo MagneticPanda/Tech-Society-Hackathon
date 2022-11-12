@@ -1,7 +1,49 @@
 const canvas = document.getElementById('snakeGame');
 const ctx = canvas.getContext('2d');
 
-const reloadBtn = document.getElementById('reloadBtn');
+const reloadBtn = document.getElementById('reloadbtn');
+
+// let highScores = null
+
+// if (localStorage.getItem("highScores") === null) {
+//     localStorage.setItem("highScores", JSON.stringify([]));
+// else {
+//     highScores = JSON.parse(localStorage.getItem("highScores"))
+// }
+
+// Creating a structure to store the high scores
+const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+// getting the value of the playerName when the button is clicked
+// function getHighScore() {
+//     let playerName = document.getElementById('playerName').value;
+//     let score = document.getElementById('score').value;
+//     const highScore = {
+//         name: playerName,
+//         score: score
+//     }
+//     highScores.push(highScore);
+//     highScores.sort((a, b) => b.score - a.score);
+//     highScores.splice(5);
+
+//     localStorage.setItem("highScores", JSON.stringify(highScores));
+//     window.location.assign("highscores.html");
+// }
+
+
+// starting the countdown timer from 60 seconds for the countdown-timer p element
+window.onload = function () {
+    let count = 60;
+    let counter = setInterval(timer, 1000);
+    function timer() {
+        count = count - 1;
+        if (count <= 0) {
+            clearInterval(counter);
+            return;
+        }
+        document.getElementById("countdown-timer").innerHTML = count + " seconds";
+    }
+}
 
 let speed = 5;
 
@@ -18,30 +60,42 @@ let bodyLength = 2;
 let velocityX = 0;
 let velocityY = 0;
 
-// NOTE: could change this to an object
-// NOTE: could have random initial assignment
-let foodX = 2;
-let foodY = 2;
+// NOTE: Could change this to an object
 
-//pear values
-let pearX=3;
-let pearY=3;
+// setting random food coordinates but not on the snake
+// setting default values for function
+function randomItemPosition() {
 
-//bomb values
-let bombX=4;
-let bombY=4;
+    X = Math.floor(Math.random() * littleSquareCount);
+    Y = Math.floor(Math.random() * littleSquareCount);
 
-//apple values
-let appleX=5;
-let appleY=5;
+    snakeBodyPieces.forEach(function isFoodOnSnake(part) {
+        const foodIsOnSnake = part.x == X && part.y == X;
+        if (foodIsOnSnake) randomFoodPosition();
+    })
+    
+    return {X, Y};
+}
+
+let foodX = randomItemPosition().X;
+let foodY = randomItemPosition().Y;
+
+let pearX = randomItemPosition().X;
+let pearY = randomItemPosition().Y;
+
+let bombX = randomItemPosition().X;
+let bombY = randomItemPosition().Y;
+
+let appleX = randomItemPosition().X;
+let appleY = randomItemPosition().Y;
 
 
 let gameScore = 0;
 let gameLevel = 0;
 
-// const eatSound = new Audio('sounds/eat.wav');
-// const gameOverSound = new Audio("./sounds/game_over.wav");
-// const winSound = new Audio("./sounds/win.wav");
+const eatSound = new Audio('./sounds/eat.wav');
+const gameOverSound = new Audio("./sounds/game-over.wav");
+const winSound = new Audio("./sounds/game-win.wav");
 
 class BodyPiece {
     constructor(x, y) {
@@ -67,14 +121,7 @@ function snakeGame() {
     draw_snake();
     drawScore();
     drawLevel();
-
-
-    //new methods ->These methods can be used when GameScore
-    //              increases
-    drawPear();
-    drawBomb();
-    drawApple();
-
+    
     // Level transitions
     // TODO: make this more dynamic
     if (gameScore > 2){
@@ -84,38 +131,58 @@ function snakeGame() {
     if (gameScore > 5){
         gameLevel = 2;
         speed = 7;
+        drawPear();
     }
     if (gameScore > 10){
         gameLevel = 3;
         speed = 8;
+        drawApple();
+        drawPear();
     }
     if (gameScore > 15){
         gameLevel = 4;
         speed = 10;
+        drawApple();
+        drawPear();
     }
     if (gameScore > 20){
         gameLevel = 5;
         speed = 12;
+        drawApple();
+        drawPear();
     }
     if (gameScore > 25){
         gameLevel = 6;
         speed = 14;
+        drawApple();
+        drawPear();
     }
     if (gameScore > 30){
         gameLevel = 7;
         speed = 15;
+        drawApple();
+        drawPear();
     }
     if (gameScore > 35){
         gameLevel = 8;
         speed = 16;
+        drawApple();
+        drawBomb();
+        drawPear();
     }
     if (gameScore > 40){
         gameLevel = 9;
         speed = 17;
+        drawApple();
+        drawBomb();
+        drawPear();
     }
     if (gameScore > 45){
         gameLevel = 10;
         speed = 18;
+        drawApple();
+        drawBomb();
+        drawPear();
     }
     if (gameScore === 50){
         drawWinMessage();
@@ -138,6 +205,7 @@ function clear_game() {
     ctx.setLineDash([]);
     ctx.strokeStyle = "rgb(0, 0, 0)";
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
 }
 
 function draw_snake() {
@@ -184,9 +252,6 @@ function drawPear() {
     ctx.fillRect(pearX * littleSquareCount + 10, pearY * littleSquareCount + -1, 5, 4);
 }
 
-
-//bomb outline -- if bomb is touched game is over --
-//still need to make method to end game upon eating bomb
 function drawBomb(){
     ctx.fillStyle = "rgb(0,0, 0)";
     ctx.fillRect(bombX * littleSquareCount + 13, bombY * littleSquareCount + 1, 4, 4);
@@ -204,43 +269,35 @@ function drawApple(){
     ctx.fillRect(appleX * littleSquareCount + 7, appleY * littleSquareCount + 1, 6, 6);
     ctx.fillStyle="rgb(0,255,0)";
     ctx.fillRect(appleX * littleSquareCount + 10, appleY * littleSquareCount + -1, 5, 4);
-
 }
 
-
-
 function isFoodEaten() {
+    // if food eaten then the snake grows and score increases
     if (foodX === headX && foodY === headY) {
         foodX = Math.floor(Math.random() * littleSquareCount);
         foodY = Math.floor(Math.random() * littleSquareCount);
         bodyLength++;
         gameScore++;
-        // eatSound.play();
+        eatSound.play();
     }
     //if pair is eaten speed increases
-    if (pearX === headX && pearY === headY) {
+    if (pearX === headX && pearY === headY && gameLevel >= 2) {
         pearX = Math.floor(Math.random() * littleSquareCount);
         pearY = Math.floor(Math.random() * littleSquareCount);
         speed++;
-        // eatSound.play();
+        eatSound.play();
     }
     //if apple is eaten then the speed decreases
-    if (appleX === headX && appleY === headY) {
+    if (appleX === headX && appleY === headY && gameLevel >= 3) {
         appleX = Math.floor(Math.random() * littleSquareCount);
         appleY = Math.floor(Math.random() * littleSquareCount);
         speed = speed-2;
-        // eatSound.play();
+        eatSound.play();
     }
-
-
-
-
-
-
 }
 
 function isGameOver() {
-
+    /* iniitially the game is not over */
     if (velocityX === 0 && velocityY === 0) {
         return false;
     }
@@ -261,17 +318,53 @@ function isGameOver() {
         }
     }
 
+    // Checking if the snake has hit the bomb
+    if (bombX == headX && bombY == headY && gameLevel >= 8) {
+        gameOver = true;
+    }
 
     if (gameOver) {
         ctx.fillStyle = "rgb(255, 255, 255)";
         ctx.font = "50px Verdana";
         ctx.fillText("Game Over", canvas.width/5, canvas.height/2);
-        // gameOverSound.play();
+        gameOverSound.play();
+
+        let playerName = prompt("Game over! Your score was " + gameScore + ". Please enter your name:");
+        if (playerName != null) {
+            highscore = {
+                name: playerName,
+                score: gameScore
+            }
+            highScores.push(highscore);
+            highScores.sort(function(a, b) {
+                return b.score - a.score;
+            });
+            localStorage.setItem("highScores", JSON.stringify(highScores));
+        } else {
+            highscore = {
+                name: "Anonymous",
+                score: gameScore
+            }
+            highScores.push(highscore);
+            highScores.sort(function(a, b) {
+                return b.score - a.score;
+            });
+            localStorage.setItem("highScores", JSON.stringify(highScores));
+        }
 
         drawReloadButton();
     }
 
     return gameOver;
+}
+
+function saveScore (playerName, score) {
+    let scores = JSON.parse(localStorage.getItem("scores"));
+    if (scores == null) {
+        scores = [];
+    }
+    scores.push({name: playerName, score: score});
+    localStorage.setItem("scores", JSON.stringify(scores));
 }
 
 function drawScore() {
@@ -290,7 +383,7 @@ function drawWinMessage(){
     ctx.fillStyle = "rgb(255, 255, 255)";
     ctx.font = "50px Verdana";
     ctx.fillText("You Win!", canvas.width/4, canvas.height/2);
-    // winSound.play();
+    winSound.play();
 }
 
 function drawReloadButton(){
@@ -329,6 +422,8 @@ document.body.addEventListener('keydown', event => {
         velocityY = 0;
     }
 });
+
+
 
 
 snakeGame();
