@@ -6,20 +6,19 @@ const addResourcesToCache = async (resouces) => {
 self.addEventListener('install', (event) => {
     event.waitUntil(
         addResourcesToCache([
-            '/',
             'index.html',
             'snake_game.js',
-            '/pages/leaderboard.html',
-            '/pages/how_to_play.html',
-            '/pages/about_us.html',
-            '/scripts/leaderboard.js',
-            '/styles/style.css',
-            '/styles/style-leaderboard.css',
-            '/styles/style-about.css',
-            '/resources/images/snakeIcon.ico',
-            '/resources/sounds/eat.wav',
-            '/resources/sounds/game-over.wav',
-            '/resources/sounds/game-win.wav'
+            'leaderboard.html',
+            'how_to_play.html',
+            'about_us.html',
+            'leaderboard.js',
+            'style.css',
+            'style-leaderboard.css',
+            'style-about.css',
+            'snakeIcon.ico',
+            'eat.wav',
+            'game-over.wav',
+            'game-win.wav'
         ])
     )
 });
