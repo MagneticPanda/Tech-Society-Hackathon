@@ -1,35 +1,9 @@
 const canvas = document.getElementById('snakeGame');
 const ctx = canvas.getContext('2d');
-
 const reloadBtn = document.getElementById('reloadbtn');
-
-// let highScores = null
-
-// if (localStorage.getItem("highScores") === null) {
-//     localStorage.setItem("highScores", JSON.stringify([]));
-// else {
-//     highScores = JSON.parse(localStorage.getItem("highScores"))
-// }
 
 // Creating a structure to store the high scores
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-
-// getting the value of the playerName when the button is clicked
-// function getHighScore() {
-//     let playerName = document.getElementById('playerName').value;
-//     let score = document.getElementById('score').value;
-//     const highScore = {
-//         name: playerName,
-//         score: score
-//     }
-//     highScores.push(highScore);
-//     highScores.sort((a, b) => b.score - a.score);
-//     highScores.splice(5);
-
-//     localStorage.setItem("highScores", JSON.stringify(highScores));
-//     window.location.assign("highscores.html");
-// }
-
 
 // starting the countdown timer from 60 seconds for the countdown-timer p element
 window.onload = function () {
@@ -49,21 +23,17 @@ let speed = 5;
 
 let littleSquareCount = 20;
 let littleSquareSize = canvas.width / littleSquareCount - 2;
-// NOTE: could change this to an object
+
 let headX = 10;
 let headY = 10;
 
 const snakeBodyPieces = [];
 let bodyLength = 2;
 
-// NOTE: could change this to an object
 let velocityX = 0;
 let velocityY = 0;
 
-// NOTE: Could change this to an object
-
-// setting random food coordinates but not on the snake
-// setting default values for function
+// random locations for items each time 
 function randomItemPosition() {
 
     X = Math.floor(Math.random() * littleSquareCount);
@@ -122,8 +92,6 @@ function snakeGame() {
     drawScore();
     drawLevel();
     
-    // Level transitions
-    // TODO: make this more dynamic
     if (gameScore > 2){
         gameLevel = 1;
         speed = 6;
@@ -190,22 +158,22 @@ function snakeGame() {
         return;
     }
 
-
     setTimeout(snakeGame, 1000/speed); // refresh every 1s (snake will move once every second)
-
 }
 
 function clear_game() {
-
     // green background
     ctx.fillStyle = "rgb(0,154,23)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     // game border
     ctx.setLineDash([]);
     ctx.strokeStyle = "rgb(0, 0, 0)";
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
+}
 
+function changeSnakePosition() {
+    headX += velocityX;
+    headY += velocityY;
 }
 
 function draw_snake() {
@@ -227,11 +195,6 @@ function draw_snake() {
     ctx.setLineDash([]);
     ctx.strokeStyle = "rgb(0, 0, 0.5)";
     ctx.strokeRect(headX * littleSquareCount, headY * littleSquareCount, littleSquareSize, littleSquareSize);
-}
-
-function changeSnakePosition() {
-    headX += velocityX;
-    headY += velocityY;
 }
 
 function drawFood() {
@@ -297,7 +260,7 @@ function isFoodEaten() {
 }
 
 function isGameOver() {
-    /* iniitially the game is not over */
+    // iniitially the game is not over
     if (velocityX === 0 && velocityY === 0) {
         return false;
     }
@@ -329,6 +292,7 @@ function isGameOver() {
         ctx.fillText("Game Over", canvas.width/5, canvas.height/2);
         gameOverSound.play();
 
+        // Prompt the plauser to enter their name and save the score for the leaderboard
         let playerName = prompt("Game over! Your score was " + gameScore + ". Please enter your name:");
         if (playerName != null) {
             highscore = {
@@ -356,15 +320,6 @@ function isGameOver() {
     }
 
     return gameOver;
-}
-
-function saveScore (playerName, score) {
-    let scores = JSON.parse(localStorage.getItem("scores"));
-    if (scores == null) {
-        scores = [];
-    }
-    scores.push({name: playerName, score: score});
-    localStorage.setItem("scores", JSON.stringify(scores));
 }
 
 function drawScore() {
@@ -422,8 +377,6 @@ document.body.addEventListener('keydown', event => {
         velocityY = 0;
     }
 });
-
-
 
 
 snakeGame();
