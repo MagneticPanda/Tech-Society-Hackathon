@@ -3,7 +3,6 @@ const ctx = canvas.getContext('2d');
 
 const reloadBtn = document.getElementById('reloadBtn');
 
-
 let speed = 5;
 
 let littleSquareCount = 20;
@@ -24,12 +23,29 @@ let velocityY = 0;
 let foodX = 2;
 let foodY = 2;
 
+//pear values
+let pearX=3;
+let pearY=3;
+
+//bomb values
+let bombX=4;
+let bombY=4;
+
+//apple values
+let appleX=5;
+let appleY=5;
+
+
 let gameScore = 0;
 let gameLevel = 0;
+
+
 
 // const eatSound = new Audio('sounds/eat.wav');
 // const gameOverSound = new Audio("./sounds/game_over.wav");
 // const winSound = new Audio("./sounds/win.wav");
+
+
 
 class BodyPiece {
     constructor(x, y) {
@@ -55,6 +71,13 @@ function snakeGame() {
     draw_snake();
     drawScore();
     drawLevel();
+
+
+    //new methods ->These methods can be used when GameScore
+    //              increases
+    drawPear();
+    drawBomb();
+    drawApple();
 
     // Level transitions
     // TODO: make this more dynamic
@@ -112,7 +135,7 @@ function snakeGame() {
 function clear_game() {
 
     // green background
-    ctx.fillStyle = "rgb(142, 192, 154)";
+    ctx.fillStyle = "rgb(0,154,23)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // game border
@@ -123,7 +146,7 @@ function clear_game() {
 
 function draw_snake() {
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+    ctx.fillStyle = "rgba(255,255,0,1";
     for (let i = 0; i < snakeBodyPieces.length; i++) {
         let bodyPiece = snakeBodyPieces[i];
         ctx.fillRect(bodyPiece.x * littleSquareCount, bodyPiece.y * littleSquareCount, littleSquareSize, littleSquareSize);
@@ -134,7 +157,7 @@ function draw_snake() {
     }
 
 
-    ctx.fillStyle = "rgb(142, 192, 154)";
+    ctx.fillStyle = "rgb(255, 0, 0)";
     ctx.fillRect(headX * littleSquareCount, headY * littleSquareCount, littleSquareSize, littleSquareSize);
 
     ctx.setLineDash([]);
@@ -155,6 +178,41 @@ function drawFood() {
     ctx.fillRect(foodX * littleSquareCount + 7, foodY * littleSquareCount + 13, 6, 6);
 }
 
+function drawPear() {
+    ctx.fillStyle = "rgba(255, 165, 0, 1)";
+    ctx.fillRect(pearX * littleSquareCount + 13, pearY * littleSquareCount + 1, 6, 6);
+    ctx.fillRect(pearX * littleSquareCount + 7, pearY * littleSquareCount + 7, 6, 6);
+    ctx.fillRect(pearX * littleSquareCount + 13, pearY * littleSquareCount + 7, 6, 6);
+    ctx.fillRect(pearX * littleSquareCount + 7, pearY * littleSquareCount + 1, 6, 6);
+    ctx.fillStyle="rgb(0,255,0)";
+    ctx.fillRect(pearX * littleSquareCount + 10, pearY * littleSquareCount + -1, 5, 4);
+}
+
+
+//bomb outline -- if bomb is touched game is over --
+//still need to make method to end game upon eating bomb
+function drawBomb(){
+    ctx.fillStyle = "rgb(0,0, 0)";
+    ctx.fillRect(bombX * littleSquareCount + 13, bombY * littleSquareCount + 1, 4, 4);
+    ctx.fillRect(bombX * littleSquareCount + 7, bombY * littleSquareCount + 7, 4, 4);
+    ctx.fillRect(bombX * littleSquareCount + 13, bombY * littleSquareCount + 7, 4, 4);
+    ctx.fillRect(bombX * littleSquareCount + 7, bombY * littleSquareCount + 1, 4, 4);
+    ctx.fillRect(bombX * littleSquareCount + 9, bombY * littleSquareCount + 4, 5, 4);
+}
+
+function drawApple(){
+    ctx.fillStyle = "rgb(255,0, 0)";
+    ctx.fillRect(appleX * littleSquareCount + 13, appleY * littleSquareCount + 1, 6, 6);
+    ctx.fillRect(appleX * littleSquareCount + 7, appleY * littleSquareCount + 7, 6, 6);
+    ctx.fillRect(appleX * littleSquareCount + 13, appleY * littleSquareCount + 7, 6, 6);
+    ctx.fillRect(appleX * littleSquareCount + 7, appleY * littleSquareCount + 1, 6, 6);
+    ctx.fillStyle="rgb(0,255,0)";
+    ctx.fillRect(appleX * littleSquareCount + 10, appleY * littleSquareCount + -1, 5, 4);
+
+}
+
+
+
 function isFoodEaten() {
     if (foodX === headX && foodY === headY) {
         foodX = Math.floor(Math.random() * littleSquareCount);
@@ -163,6 +221,25 @@ function isFoodEaten() {
         gameScore++;
         // eatSound.play();
     }
+    //if pair is eaten speed increases
+    if (pearX === headX && pearY === headY) {
+        pearX = Math.floor(Math.random() * littleSquareCount);
+        pearY = Math.floor(Math.random() * littleSquareCount);
+        speed++;
+        // eatSound.play();
+    }
+    //if apple is eaten then the speed decreases
+    if (appleX === headX && appleY === headY) {
+        appleX = Math.floor(Math.random() * littleSquareCount);
+        appleY = Math.floor(Math.random() * littleSquareCount);
+        speed = speed-2;
+        // eatSound.play();
+    }
+
+
+
+
+
 
 }
 
@@ -204,13 +281,13 @@ function isGameOver() {
 function drawScore() {
     ctx.fillStyle = "white";
     ctx.font = "20px Verdana";
-    ctx.fillText("Score: " + gameScore, canvas.width - 100, 20);
+    ctx.fillText("Score: " + gameScore, canvas.width - 110, 20);
 }
 
 function drawLevel(){
     ctx.fillStyle = "white";
     ctx.font = "20px Verdana";
-    ctx.fillText("Level: " + gameLevel, canvas.width - 20, 20);
+    ctx.fillText("Level: " + gameLevel, canvas.width - 380, 20);
 }
 
 function drawWinMessage(){
