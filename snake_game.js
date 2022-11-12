@@ -1,12 +1,13 @@
 const canvas = document.getElementById('snakeGame');
 const ctx = canvas.getContext('2d');
 const reloadBtn = document.getElementById('reloadbtn');
+const startTimerBtn = document.getElementById('start-timer');
 
-// Creating a structure to store the high scores
-const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+startTimerBtn.addEventListener('click', function () {
+    startTimer();
+});
 
-// starting the countdown timer from 60 seconds for the countdown-timer p element
-window.onload = function () {
+function startTimer() {
     let count = 60;
     let counter = setInterval(timer, 1000);
     function timer() {
@@ -18,6 +19,11 @@ window.onload = function () {
         document.getElementById("countdown-timer").innerHTML = count + " seconds";
     }
 }
+
+// getting the value of the p tag with id "countdown-timer"
+
+// Creating a structure to store the high scores
+const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
 let speed = 5;
 
@@ -63,9 +69,9 @@ let appleY = randomItemPosition().Y;
 let gameScore = 0;
 let gameLevel = 0;
 
-const eatSound = new Audio('./sounds/eat.wav');
-const gameOverSound = new Audio("./sounds/game-over.wav");
-const winSound = new Audio("./sounds/game-win.wav");
+const eatSound = new Audio('eat.wav');
+const gameOverSound = new Audio("game-over.wav");
+const winSound = new Audio("game-win.wav");
 
 class BodyPiece {
     constructor(x, y) {
@@ -178,7 +184,7 @@ function changeSnakePosition() {
 
 function draw_snake() {
 
-    ctx.fillStyle = "rgba(255,255,0,1";
+    ctx.fillStyle = "rgba(0,0,0,0.5";
     for (let i = 0; i < snakeBodyPieces.length; i++) {
         let bodyPiece = snakeBodyPieces[i];
         ctx.fillRect(bodyPiece.x * littleSquareCount, bodyPiece.y * littleSquareCount, littleSquareSize, littleSquareSize);
@@ -189,7 +195,7 @@ function draw_snake() {
     }
 
 
-    ctx.fillStyle = "rgb(255, 0, 0)";
+    ctx.fillStyle = "rgb(142, 192, 154)";
     ctx.fillRect(headX * littleSquareCount, headY * littleSquareCount, littleSquareSize, littleSquareSize);
 
     ctx.setLineDash([]);
@@ -286,6 +292,13 @@ function isGameOver() {
         gameOver = true;
     }
 
+    // if the timer is over then the game is over
+    if (gameLevel >= 1) {
+        if (parseInt(document.getElementById("countdown-timer").innerHTML) <= 1) {
+            gameOver = true;
+        }
+    }
+
     if (gameOver) {
         ctx.fillStyle = "rgb(255, 255, 255)";
         ctx.font = "50px Verdana";
@@ -318,7 +331,6 @@ function isGameOver() {
 
         drawReloadButton();
     }
-
     return gameOver;
 }
 
