@@ -8,10 +8,11 @@
 }
 
 body{
-    background: pink;
-    color: #fff;
-    font-size: 1.5rem;
-    line-height: 1.5;
+  background: rgb(13, 172, 13);
+  color: white;
+  text-shadow: rgb(255, 255, 255) 1px, 0px, 0px;
+  font-size: 1.5rem;
+  line-height: 1.5;
 }
 
 h1{
@@ -42,43 +43,3 @@ h3{
 p{
     text-align: center;
 }
-
-  /* body{
-    background: #eb898b;
-    font-family: 'Josefin Sans', sans-serif;
-  } */
-  
-  /* .wrapper1 h1{
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 50px;
-    margin-bottom: 60px;
-    text-align: center;
-  }
-  
-  .wrapper2 h2{
-    font-size: 25px;
-    margin-top: 2%;
-    margin-left: 2%;
-    -webkit-text-fill-color: rgb(233, 210, 183);
-  } */
-  
-  /* .wrapper3 p{
-    font-size: 20px;
-    margin-top: 2%;
-    margin-left: 2%;
-    -webkit-text-fill-color: beige;
-  }
-  
-  .wrapper4 h3{
-    font-size: 20px;
-    margin-top: 2%;
-    margin-left: 2%;
-    -webkit-text-fill-color: beige;
-  }
-  
-  .wrapper4 p{
-    font-size: 20px;
-    margin-top: 2%;
-    margin-left: 2%;
-    -webkit-text-fill-color: beige;
-  } */
